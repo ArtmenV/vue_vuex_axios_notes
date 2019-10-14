@@ -3,19 +3,22 @@
     <div id="nav">
       <router-link to="/"></router-link>
     </div>
-    <Todos />
+    <AddNote />
+    <Notes />
     <router-view />
   </div>
 </template>
 
 <script>
-import Todos from "./components/Todos";
+import Notes from "./components/Notes";
+import AddNote from "./components/AddNote";
 export default {
   data() {
     return {};
   },
   components: {
-    Todos
+    Notes,
+    AddNote
   }
 };
 </script>
