@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Add Note</h3>
-    <form @submit="onSubmit">
+    <form @submit.prevent="onSubmit">
       <input type="text" v-model="title" placeholder="add note ..." />
       <input type="submit" value="Submit" />
     </form>
@@ -19,8 +19,7 @@ export default {
   },
   methods: {
     ...mapActions(["AddNote"]),
-    onSubmit(e) {
-      e.preventDefault();
+    onSubmit() {
       this.AddNote(this.title);
     }
   }

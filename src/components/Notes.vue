@@ -2,8 +2,9 @@
   <div>
     <h3>Notes</h3>
     <div class="todos">
-      <div class="todo" v-for="todo in allTodos" :key="todo.id">
-        <h3>{{todo.id}}. {{todo.title}}</h3>
+      <div class="todo" v-for="note in allNotes" :key="note.id">
+        <h3>{{note.title}}</h3>
+        <i class="fas fa-trash-alt" @click="deleteNote(note.id)"></i>
       </div>
     </div>
   </div>
@@ -12,13 +13,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "Todos",
-  computed: mapGetters(["allTodos"]),
+  name: "Notes",
+  computed: mapGetters(["allNotes"]),
   methods: {
-    ...mapActions(["getTodos"])
+    ...mapActions(["getNotes", "deleteNote"])
   },
   async mounted() {
-    this.getTodos();
+    this.getNotes();
   }
 };
 </script>
@@ -38,6 +39,14 @@ export default {
   border-radius: 5px;
   text-align: center;
   position: relative;
+  cursor: pointer;
+}
+
+i {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #fff;
   cursor: pointer;
 }
 </style>

@@ -5,32 +5,36 @@ export default {
     notes: []
   },
   getters: {
-    allTodos(state) {
+    allNotes(state) {
       return state.notes;
     }
   },
   actions: {
-    async getTodos({ commit }) {
+    async getNotes({ commit }) {
       const { data } = await instAPI("/todos");
 
-      commit("loadTodos", data);
+      commit("loadNotes", data);
     },
     async AddNote({ commit }, title) {
-      const { data } = await instAPI.post(
-        "https://jsonplaceholder.typicode.com/todos",
-        {
-          id: new Date(),
-          title,
-          completed: false
-        }
-      );
+      const { data } = await instAPI.post("/todos", {
+        title,
+        completed: false
+      });
       commit("newNote", data);
+    },
+    async deleteNote({ commit }, id) {
+      await instAPI.delete(`/todos/${id}`);
+      commit("removeNote", id);
     }
   },
   mutations: {
-    loadTodos(state, data) {
+    loadNotes(state, data) {
       state.notes = data;
     },
-    newNote: (state, data) => state.notes.unshift(data)
+    newNote(state, data) {
+      state.notes.unshift(data);
+    },
+    removeNote: (state, id) =>
+      (state.notes = state.notes.filter(note => note.id !== id))
   }
 };
