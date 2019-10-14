@@ -4,6 +4,7 @@
       <router-link to="/"></router-link>
     </div>
     <AddNote />
+    <FilterNotes />
     <Notes />
     <router-view />
   </div>
@@ -12,13 +13,15 @@
 <script>
 import Notes from "./components/Notes";
 import AddNote from "./components/AddNote";
+import FilterNotes from "./components/FilterNotes";
 export default {
   data() {
     return {};
   },
   components: {
     Notes,
-    AddNote
+    AddNote,
+    FilterNotes
   }
 };
 </script>

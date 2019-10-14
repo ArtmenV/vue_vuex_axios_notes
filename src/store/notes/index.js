@@ -25,6 +25,14 @@ export default {
     async deleteNote({ commit }, id) {
       await instAPI.delete(`/todos/${id}`);
       commit("removeNote", id);
+    },
+    async filterNotes({ commit }, e) {
+      const limit = parseInt(
+        e.target.options[e.target.options.selectedIndex].innerText
+      );
+      console.log(limit);
+      const { data } = await instAPI(`/todos?_limit=${limit}`);
+      commit("loadNotes", data);
     }
   },
   mutations: {
@@ -34,7 +42,8 @@ export default {
     newNote(state, data) {
       state.notes.unshift(data);
     },
-    removeNote: (state, id) =>
-      (state.notes = state.notes.filter(note => note.id !== id))
+    removeNote(state, id) {
+      return (state.notes = state.notes.filter(note => note.id !== id));
+    }
   }
 };
