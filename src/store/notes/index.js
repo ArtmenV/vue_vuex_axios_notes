@@ -30,9 +30,13 @@ export default {
       const limit = parseInt(
         e.target.options[e.target.options.selectedIndex].innerText
       );
-      console.log(limit);
       const { data } = await instAPI(`/todos?_limit=${limit}`);
       commit("loadNotes", data);
+    },
+    async updateNotes({ commit }, updNotes) {
+      const response = await instAPI.put(`/todos/${updNotes.id}`, updNotes);
+      console.log(response);
+      commit("updNotes", response.data);
     }
   },
   mutations: {
@@ -44,6 +48,12 @@ export default {
     },
     removeNote(state, id) {
       return (state.notes = state.notes.filter(note => note.id !== id));
+    },
+    updNotes(state, updNotes) {
+      const index = state.notes.findIndex(todo => todo.id === updNotes.id);
+      if (index !== -1) {
+        state.notes.splice(index, 1, updNotes);
+      }
     }
   }
 };
