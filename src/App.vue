@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import Todos from "./components/Todos";
 export default {
   data() {
@@ -21,5 +20,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+#app {
+  width: 95%;
+}
 </style>
